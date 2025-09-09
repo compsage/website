@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quantum Computing</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Exo 2', sans-serif;
+            min-height: 100vh;
+            background: url('quantum_computer.png') no-repeat center center;
+            background-size: cover;
+            background-attachment: fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        /* Navigation Menu - Hidden by default */
+        nav {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            z-index: 1000;
+            display: none;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+            padding: 15px 30px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #e8bd5f;
+            font-family: 'Orbitron', monospace;
+            font-weight: 600;
+            font-size: 22px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            position: relative;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4), 0 0 5px rgba(232, 189, 95, 0.3);
+        }
+
+        nav a:hover {
+            color: #ffd885;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4), 0 0 10px rgba(232, 189, 95, 0.6);
+            transform: scale(1.05);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #e8b4b8, transparent);
+            transition: width 0.3s ease;
+            box-shadow: 0 0 4px rgba(232, 180, 184, 0.6);
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .content {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 900px;
+            max-width: 90%;
+            padding: 50px;
+            padding-top: 40px;
+            text-align: center;
+        }
+
+        /* Social Buttons Container */
+        .social-buttons {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            display: flex;
+            gap: 15px;
+            z-index: 1000;
+        }
+
+        /* LinkedIn Button */
+        .linkedin-link {
+            display: inline-flex;
+            align-items: center;
+            padding: 12px 24px;
+            background: #0077b5;
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-family: 'Exo 2', sans-serif;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 119, 181, 0.3);
+        }
+
+        .linkedin-link:hover {
+            background: #005885;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 119, 181, 0.4);
+        }
+
+        .linkedin-link svg {
+            width: 20px;
+            height: 20px;
+            margin-right: 8px;
+            fill: white;
+        }
+
+        /* Email Button */
+        .email-link {
+            display: inline-flex;
+            align-items: center;
+            padding: 12px 24px;
+            background: #e8bd5f;
+            color: #1a1a1a;
+            text-decoration: none;
+            border-radius: 30px;
+            font-family: 'Exo 2', sans-serif;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(232, 189, 95, 0.3);
+        }
+
+        .email-link:hover {
+            background: #d4a544;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(232, 189, 95, 0.4);
+        }
+
+        .email-link svg {
+            width: 20px;
+            height: 20px;
+            margin-right: 8px;
+            fill: #1a1a1a;
+        }
+
+        h1 {
+            font-family: 'Orbitron', monospace;
+            font-size: 52px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #000000;
+            text-transform: none;
+            letter-spacing: 1px;
+            text-align: center;
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
+        }
+
+        .intro {
+            font-family: 'Exo 2', sans-serif;
+            font-size: 30px;
+            color: #000000;
+            margin-bottom: 25px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            text-align: center;
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
+            line-height: 1.3;
+        }
+
+        .experience {
+            padding: 0;
+        }
+
+        h2 {
+            display: none;
+        }
+
+        .experience ul {
+            list-style: none;
+            padding: 0;
+            text-align: left;
+            margin: 0 auto;
+            max-width: 800px;
+        }
+
+        .experience li {
+            font-family: 'Exo 2', sans-serif;
+            color: #000000;
+            font-size: 22px;
+            margin-bottom: 12px;
+            padding-left: 40px;
+            position: relative;
+            line-height: 1.4;
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
+            font-weight: 400;
+        }
+
+        .experience li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 10px;
+            width: 14px;
+            height: 14px;
+            background: radial-gradient(circle, #ffd700 0%, #e8bd5f 40%, transparent 70%);
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(232, 189, 95, 0.6), 
+                        inset 0 0 3px rgba(255, 215, 0, 0.8);
+            animation: quantum-pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes quantum-pulse {
+            0%, 100% { 
+                box-shadow: 0 0 10px rgba(232, 189, 95, 0.6), 
+                           inset 0 0 3px rgba(255, 215, 0, 0.8);
+                transform: scale(1);
+            }
+            50% { 
+                box-shadow: 0 0 20px rgba(255, 215, 0, 0.9), 
+                           inset 0 0 5px rgba(232, 189, 95, 1);
+                transform: scale(1.2);
+            }
+        }
+
+
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            nav {
+                top: 20px;
+                right: 20px;
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 15px;
+                padding: 20px;
+                border-radius: 20px;
+            }
+
+            nav a {
+                font-size: 16px;
+            }
+
+            .content {
+                position: relative;
+                left: auto;
+                top: auto;
+                transform: none;
+                width: 90%;
+                margin: 80px auto 20px;
+                padding: 30px;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+
+            .intro {
+                font-size: 18px;
+            }
+
+            h2 {
+                font-size: 20px;
+            }
+
+            .experience li {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Menu -->
+    <nav>
+        <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Social Buttons -->
+    <div class="social-buttons">
+        <a href="https://linkedin.com/in/jon-white-bb0b174a" target="_blank" class="linkedin-link">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+            </svg>
+            Connect to Jon on LinkedIn
+        </a>
+        
+        <a href="mailto:jon@ocompsage.tech" class="email-link">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+            </svg>
+            Email Jon
+        </a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="content">
+        <h1>Hi, I'm Jon White aka Compsage</h1>
+        <p class="intro">I ❤️ tech, teaching and solving real problems. Below is my experience at a glance:</p>
+        
+        <div class="experience">
+            <ul>
+                <li>20+ years in Defense Tech from Digital Signal Processing to Full Stack Development to Data Science to Technical Leadership</li>
+                <li>Supported top companies including Lockheed Martin, L3 Communications, CACI and Red Alpha</li>
+                <li>Proficient in scalable system design and architecture with a focus on Amazon Web Services</li>
+                <li>Proficient in prompt and AI engineering with a focus on Natural Language Processing</li>
+                <li>Understands how to interpret enterprise requirements from a technical perspective to create business value</li>
+                <li>Expert at creating AI Automations and Enterprise Applications</li>
+            </ul>
+        </div>
+    </div>
+
+</body>
+</html>
